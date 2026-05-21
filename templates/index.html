@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arken Fish Gallery - Elite Aquatic Experience</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div id="particles-js"></div>
+     <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-wrapper">
+            <div class="loader">
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+                <div class="loader-circle"></div>
+            </div>
+            <p>Mempersiapkan Dunia Aquatic Anda...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <div class="logo">
+                <i class="fas fa-water"></i>
+                <span>Arken Fish Gallery</span>
+            </div>
+            
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="home">Beranda</button>
+                <button class="nav-tab" data-tab="about">Tentang</button>
+                <button class="nav-tab" data-tab="ikan-hias">Hias</button>
+                <button class="nav-tab" data-tab="ikan-predator">Predator</button>
+                <button class="nav-tab" data-tab="contact">Kontak</button>
+                <button class="nav-tab" data-tab="portfolio">Tim</button>
+            </nav>
+            
+            <div class="nav-actions">
+                <div class="cart-icon-wrapper" id="cart-toggle">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Cari spesies...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Container -->
+        <div class="page-container">
+            
+            <!-- Home Page -->
+            <div class="page hero-page active" id="page-home">
+                <div class="page-content">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <i class="fas fa-fish"></i>
+                            <span>Premium Aquatic Gallery</span>
+                        </div>
+                        <h1 class="hero-title">Selamat Datang di <span>Arken Fish Gallery</span></h1>
+                        <p class="hero-desc">Temukan koleksi ikan hias dan predator eksotis dengan kualitas premium, membawa keajaiban bawah laut ke dalam ruangan Anda.</p>
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary" id="explore-collection">Jelajahi Koleksi</a>
+                            <a href="#" class="btn btn-secondary" id="learn-more">Pelajari Lebih Lanjut</a>
+                        </div>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">100+</div>
+                                <div class="stat-label">Spesies Ikan</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Kepuasan Pelanggan</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">8+</div>
+                                <div class="stat-label">Tahun Pengalaman</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Page -->
+            <div class="page" id="page-about">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h2 class="page-title">Tentang <span>Arken Fish Gallery</span></h2>
+                        <p class="page-subtitle">Lebih dari sekadar toko, kami adalah kurator kehidupan aquatik</p>
+                    </div>
+                    
+                    <div class="about-grid">
+                        <div class="about-image">
+                            <img src="img/identitas arken rumah - Copy.jpg" alt="Interior Toko">
+                            <div class="about-image-overlay">
+                                <h3>Showroom Kami</h3>
+                                <p>Blitar, Jawa Timur</p>
+                            </div>
+                        </div>
+                        <div class="about-text">
+                            <h3>Komitmen Kami pada Kualitas dan Keindahan</h3>
+                            <p>Perusahaan kami didirikan pada tahun 2021 oleh Ari Bintang Pratama, berawal dari hobi memelihara ikan saat masih duduk di kelas 12 STM. Dengan tekad dan semangat otodidak tanpa arahan siapa pun, hobi tersebut berkembang menjadi usaha perikanan yang sukses dan berpengaruh hingga kini (2025).</p>
+                            <p>Kami memiliki beragam jenis ikan hias dan konsumsi, dengan fokus utama pada ikan Channa sebagai spesialisasi unggulan. Kualitas, ketelitian, dan pengalaman menjadi dasar kami dalam menghadirkan ikan terbaik untuk pelanggan di berbagai daerah.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="vision-mission">
+                        <div class="vm-card">
+                            <i class="fas fa-eye"></i>
+                            <h4>Visi</h4>
+                            <p>Menjadi destinasi utama dan paling terpercaya untuk aquascape dan ikan hias premium di Asia Tenggara, yang dikenal karena keunggulan dalam kualitas, inovasi, dan layanan pelanggan.</p>
+                        </div>
+                        <div class="vm-card">
+                            <i class="fas fa-bullseye"></i>
+                            <h4>Misi</h4>
+                            <ul>
+                                <li>Menyediakan ikan dan tanaman aquascape berkualitas premium</li>
+                                <li>Mendidik pelanggan tentang praktik perawatan ikan yang bertanggung jawab</li>
+                                <li>Menciptakan pengalaman berbelanja yang imersif dan inspiratif</li>
+                                <li>Membangun komunitas aquarist yang solid</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ikan Hias Page -->
+            <div class="page" id="page-ikan-hias">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h2 class="page-title">Koleksi Ikan <span>Hias</span></h2>
+                        <p class="page-subtitle">Keindahan warna dan gerakan yang memukau</p>
+                    </div>
+                    
+                    <!-- Admin Actions -->
+                    <div class="admin-actions">
+                        <button class="btn btn-primary" id="add-fish-hias">
+                            <i class="fas fa-plus"></i> Tambah Ikan Hias
+                        </button>
+                    </div>
+                    
+                    <!-- Filter Tabs -->
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">Semua</button>
+                        <button class="filter-tab" data-filter="premium">Premium</button>
+                        <button class="filter-tab" data-filter="lokal">Lokal</button>
+                        <button class="filter-tab" data-filter="import">Import</button>
+                    </div>
+                    
+                    <div class="fish-grid" id="fish-hias-grid">
+                        <!-- Fish cards rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ikan Predator Page -->
+            <div class="page" id="page-ikan-predator">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h2 class="page-title">Koleksi Ikan <span>Predator</span></h2>
+                        <p class="page-subtitle">Kekuatan dan keangkeran di dalam akuarium</p>
+                    </div>
+                    
+                    <!-- Admin Actions -->
+                    <div class="admin-actions">
+                        <button class="btn btn-primary" id="add-fish-predator">
+                            <i class="fas fa-plus"></i> Tambah Ikan Predator
+                        </button>
+                    </div>
+                    
+                    <!-- Filter Tabs -->
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">Semua</button>
+                        <button class="filter-tab" data-filter="channa">Channa</button>
+                        <button class="filter-tab" data-filter="arowana">Arowana</button>
+                        <button class="filter-tab" data-filter="other">Lainnya</button>
+                    </div>
+                    
+                    <div class="fish-grid" id="fish-predator-grid">
+                        <!-- Fish cards rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Page -->
+            <div class="page" id="page-contact">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h2 class="page-title">Hubungi <span>Kami</span></h2>
+                        <p class="page-subtitle">Kunjungi showroom kami atau hubungi secara online</p>
+                    </div>
+                    
+                    <div class="contact-grid">
+                        <div class="contact-info-card">
+                            <h3>Informasi Kontak</h3>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div class="contact-item-text">
+                                    <h4>Alamat</h4>
+                                    <p>RT.03/RW.05, Tambak Boyo, Sumber, Kec. Sanankulon, Kabupaten Blitar, Jawa Timur 66151</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <div class="contact-item-text">
+                                    <h4>Telepon</h4>
+                                    <p>+62 085755174851</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <div class="contact-item-text">
+                                    <h4>Email</h4>
+                                    <p>info@44Francc_uky</p>
+                                </div>
+                            </div>
+                            
+                            <h3 style="margin-top: 30px;">Media Sosial</h3>
+                            <div class="team-social" style="margin-top: 15px;">
+                                <a href="https://www.instagram.com/arken_fish_galery" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="https://facebook.com/aquapredator" target="_blank"><i class="fab fa-facebook"></i></a>
+                                <a href="https://wa.me/6285755174851" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                <a href="https://tiktok.com/@arken_fish_gallery" target="_blank"><i class="fab fa-tiktok"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3950.256326713799!2d112.1337763!3d-8.0753187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e78ef90ecd06449%3A0x779752db19fe8969!2sArken%20Fish%20Gallery!5e0!3m2!1sid!2sid!4v1761284008326!5m2!1sid!2sid" width="100%" height="300" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+                            <div class="contact-map-info">
+                                <h4>Lokasi Kami</h4>
+                                <p>Kunjungi showroom kami untuk melihat langsung koleksi ikan premium</p>
+                                <a href="https://maps.app.goo.gl/pxzZkcGkMdCzbd9A6" target="_blank" class="map-link">
+                                    <i class="fas fa-directions"></i> Buka di Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio/Team Page -->
+            <div class="page" id="page-portfolio">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h2 class="page-title">Tim <span>Profesional</span> Kami</h2>
+                        <p class="page-subtitle">Di balik Arken Fish Gallery adalah tim yang berdedikasi</p>
+                    </div>
+                    
+                    <div class="team-grid">
+                        <!-- Team Member 1 -->
+                        <div class="team-card">
+                            <div class="team-header">
+                                <div class="team-avatar">
+                                    <img src="img/foto uky.jpg" alt="Uky Zubair">
+                                </div>
+                                <div class="team-name">
+                                    <h3>Uky Zubair</h3>
+                                    <p>UI/UX Designer</p>
+                                </div>
+                            </div>
+                            <div class="team-body">
+                                <p>Desainer yang fokus pada pengalaman pengguna yang intuitif dan estetika yang menawan.</p>
+                                <div class="team-skills">
+                                    <span class="skill-tag">UI Design</span>
+                                    <span class="skill-tag">UX Research</span>
+                                </div>
+                                <button class="btn btn-primary view-profile" data-member="1">Lihat Profil</button>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 2 -->
+                        <div class="team-card">
+                            <div class="team-header">
+                                <div class="team-avatar">
+                                    <img src="img/tata.jpg" alt="Tata Axcela">
+                                </div>
+                                <div class="team-name">
+                                    <h3>Tata Axcela</h3>
+                                    <p>Company Profile Specialist</p>
+                                </div>
+                            </div>
+                            <div class="team-body">
+                                <p>Fokus kedalam identitas perusahaan, membangun citra merek yang kuat dan konsisten.</p>
+                                <div class="team-skills">
+                                    <span class="skill-tag">Branding</span>
+                                    <span class="skill-tag">Content Strategy</span>
+                                </div>
+                                <button class="btn btn-primary view-profile" data-member="2">Lihat Profil</button>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 3 -->
+                        <div class="team-card">
+                            <div class="team-header">
+                                <div class="team-avatar">
+                                    <img src="img/tomy.jpg" alt="Tomy Aditya">
+                                </div>
+                                <div class="team-name">
+                                    <h3>Tomy Aditya</h3>
+                                    <p>Company Profile Specialist</p>
+                                </div>
+                            </div>
+                            <div class="team-body">
+                                <p>Mencari informasi data perusahaan untuk membuat website ini dengan akurat dan terperinci.</p>
+                                <div class="team-skills">
+                                    <span class="skill-tag">Data Research</span>
+                                    <span class="skill-tag">Documentation</span>
+                                </div>
+                                <button class="btn btn-primary view-profile" data-member="3">Lihat Profil</button>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 4 -->
+                        <div class="team-card">
+                            <div class="team-header">
+                                <div class="team-avatar">
+                                    <img src="img/ridho.jpg" alt="M.Ridho Prama">
+                                </div>
+                                <div class="team-name">
+                                    <h3>M.Ridho Prama</h3>
+                                    <p>Content Strategist</p>
+                                </div>
+                            </div>
+                            <div class="team-body">
+                                <p>Pakar dalam menciptakan narasi merek yang kuat dan konten yang menarik bagi audiens.</p>
+                                <div class="team-skills">
+                                    <span class="skill-tag">Content Strategy</span>
+                                    <span class="skill-tag">Social Media</span>
+                                </div>
+                                <button class="btn btn-primary view-profile" data-member="4">Lihat Profil</button>
+                            </div>
+                        </div>
+
+                        <!-- Team Member 5 -->
+                        <div class="team-card">
+                            <div class="team-header">
+                                <div class="team-avatar">
+                                    <img src="img/verlita.jpg" alt="Verlita Putri">
+                                </div>
+                                <div class="team-name">
+                                    <h3>Verlita Putri</h3>
+                                    <p>Digital Marketing</p>
+                                </div>
+                            </div>
+                            <div class="team-body">
+                                <p>Spesialis pemasaran digital dengan fokus pada pertumbuhan dan engagement pengguna.</p>
+                                <div class="team-skills">
+                                    <span class="skill-tag">Digital Marketing</span>
+                                    <span class="skill-tag">Analytics</span>
+                                </div>
+                                <button class="btn btn-primary view-profile" data-member="5">Lihat Profil</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Keranjang</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items rendered by JS -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">Rp 0</span>
+            </div>
+            <button class="btn btn-primary checkout-btn" id="checkout-btn">Checkout via WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Fish CRUD Modal -->
+    <div class="modal-overlay" id="fish-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="close-fish-modal">&times;</button>
+            <div class="modal-body">
+                <h2 id="modal-title">Tambah Ikan Baru</h2>
+                <form id="fish-form">
+                    <input type="hidden" id="fish-id">
+                    <input type="hidden" id="fish-category">
+                    
+                    <div class="form-group">
+                        <label for="fish-name">Nama Ikan</label>
+                        <input type="text" id="fish-name" placeholder="Masukkan nama ikan" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fish-price">Harga (Rp)</label>
+                        <input type="text" id="fish-price" placeholder="Contoh: 150.000" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fish-image">URL Gambar</label>
+                        <input type="text" id="fish-image" placeholder="img/nama-gambar.jpg" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fish-desc">Deskripsi</label>
+                        <textarea id="fish-desc" rows="3" placeholder="Deskripsi singkat..." required></textarea>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="fish-size">Ukuran (cm)</label>
+                            <input type="text" id="fish-size" placeholder="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="fish-temp">Suhu (°C)</label>
+                            <input type="text" id="fish-temp" placeholder="24-28">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fish-ph">pH</label>
+                        <input type="text" id="fish-ph" placeholder="6.5-7.5">
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label for="fish-badge">Badge</label>
+                            <select id="fish-badge">
+                                <option value="">Tidak Ada</option>
+                                <option value="Premium">Premium</option>
+                                <option value="Best Seller">Best Seller</option>
+                                <option value="New">New</option>
+                                <option value="Limited">Limited</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="fish-filter">Kategori Filter</label>
+                            <select id="fish-filter">
+                                <option value="all">Semua</option>
+                                <option value="premium">Premium</option>
+                                <option value="lokal">Lokal</option>
+                                <option value="import">Import</option>
+                                <option value="channa">Channa</option>
+                                <option value="other">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 30px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <i class="fas fa-save"></i> Simpan
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancel-fish-form" style="flex: 1;">
+                            Batal
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-body" style="text-align: center;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff4757; margin-bottom: 20px;"></i>
+                <h2>Hapus Ikan?</h2>
+                <p style="color: var(--text-secondary); margin: 20px 0;">Data ikan yang dihapus tidak dapat dikembalikan.</p>
+                <div style="display: flex; gap: 15px;">
+                    <button class="btn btn-danger" id="confirm-delete" style="flex: 1;">
+                        <i class="fas fa-trash"></i> Hapus
+                    </button>
+                    <button class="btn btn-secondary" id="cancel-delete" style="flex: 1;">
+                        Batal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close close-modal">&times;</button>
+            <div class="modal-body" id="profile-details">
+                <!-- Profile details rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TAMBAHAN: Checkout Data Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-content" style="max-width: 450px;">
+            <button class="modal-close" id="close-checkout-modal">&times;</button>
+            <div class="modal-body">
+                <h2>Data Pembeli</h2>
+                <form id="checkout-form">
+                    <div class="form-group">
+                        <label for="buyer-name">Nama Lengkap</label>
+                        <input type="text" id="buyer-name" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyer-phone">Nomor WhatsApp</label>
+                        <input type="tel" id="buyer-phone" placeholder="Contoh: 08123456789" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyer-location">Lokasi Pengiriman</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="text" id="buyer-location" placeholder="Klik tombol untuk ambil lokasi" readonly style="flex: 1;">
+                            <button type="button" class="btn btn-secondary" id="get-location-btn" style="padding: 10px 15px;">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </div>
+                        <small style="color: var(--text-secondary); font-size: 0.75rem; margin-top: 5px; display: block;">
+                            Klik tombol peta untuk mengambil lokasi GPS saat ini.
+                        </small>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                        <i class="fab fa-whatsapp"></i> Kirim Pesanan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <div class="mobile-nav-items">
+            <button class="mobile-nav-item active" data-tab="home">
+                <i class="fas fa-home"></i>
+                <span>Beranda</span>
+            </button>
+            <button class="mobile-nav-item" data-tab="ikan-hias">
+                <i class="fas fa-fish"></i>
+                <span>Hias</span>
+            </button>
+            <button class="mobile-nav-item" data-tab="ikan-predator">
+                <i class="fas fa-dragon"></i>
+                <span>Predator</span>
+            </button>
+            <button class="mobile-nav-item" data-tab="contact">
+                <i class="fas fa-phone"></i>
+                <span>Kontak</span>
+            </button>
+            <button class="mobile-nav-item" data-tab="portfolio">
+                <i class="fas fa-users"></i>
+                <span>Tim</span>
+            </button>
+        </div>i
+    </nav>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
