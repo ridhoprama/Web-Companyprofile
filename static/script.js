@@ -4,108 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // DATA STORE
     // =====================
     
-    const defaultFishHias = [
-        {
-            id: 1,
-            name: 'Axolot',
-            price: '75.000 - 250.000',
-            image: 'img/axolot.jpg',
-            desc: 'Axolotl adalah sejenis salamander air yang berasal dari Meksiko. Hewan ini dikenal unik karena mampu meregenerasi bagian tubuhnya.',
-            size: '20 cm',
-            temp: '28-30°C',
-            ph: '6.0-7.0',
-            badge: 'Premium',
-            filter: 'premium'
-        },
-        {
-            id: 2,
-            name: 'Ikan Datz',
-            price: '100.000 - 500.000',
-            image: 'img/datz.jpg',
-            desc: 'Ikan datz atau Datnoid adalah ikan predator air tawar yang dikenal dengan tubuhnya yang pipih lebar.',
-            size: '80 cm',
-            temp: '15-25°C',
-            ph: '7.0-8.5',
-            badge: '',
-            filter: 'import'
-        },
-        {
-            id: 3,
-            name: 'Ikan Red Parrot',
-            price: '50.000 - 150.000',
-            image: 'img/paroot.jpg',
-            desc: 'Ikan red parrot adalah ikan hias hasil persilangan yang terkenal dengan warna merah cerah.',
-            size: '60 cm',
-            temp: '26-30°C',
-            ph: '6.5-7.5',
-            badge: 'Best Seller',
-            filter: 'lokal'
-        },
-        {
-            id: 4,
-            name: 'Ikan Glowfish',
-            price: '2.000 - 5.000',
-            image: 'img/glofish.jpeg',
-            desc: 'Ikan glowfish adalah ikan hias yang dikenal karena warna tubuhnya yang bercahaya terang.',
-            size: '4 cm',
-            temp: '22-28°C',
-            ph: '7.0-8.0',
-            badge: 'New',
-            filter: 'lokal'
-        }
-    ];
-
-    const defaultFishPredator = [
-        {
-            id: 1,
-            name: 'Ikan Channa Stewarti',
-            price: '25.000 - 500.000',
-            image: 'img/channa stewarti.jpg',
-            desc: 'Ikan Stewarti berasal dari perairan india yang di juluki sebagai barca kw.',
-            size: '20 cm',
-            temp: '24-28°C',
-            ph: '5.5-7.5',
-            badge: 'Premium',
-            filter: 'channa'
-        },
-        {
-            id: 2,
-            name: 'Ikan Palmas',
-            price: '15.000 - 150.000',
-            image: 'img/WhatsApp Image 2025-11-05 at 18.30.08_07b051c0.jpg',
-            desc: 'Ikan Palmas yang dikenal sebagai ikan naga',
-            size: '30 cm',
-            temp: '27-30°C',
-            ph: '6.5-7.5',
-            badge: '',
-            filter: 'other'
-        },
-        {
-            id: 3,
-            name: 'Ikan Channa Auranti',
-            price: '250.000 - 2.000.000',
-            image: 'img/chana auranti.jpg',
-            desc: 'Ikan predator yang memiliki warna cantik berasal dari perairan india.',
-            size: '20 cm',
-            temp: '24-28°C',
-            ph: '6.5-7.5',
-            badge: 'Limited',
-            filter: 'channa'
-        },
-        {
-            id: 4,
-            name: 'Ikan Oscar Red Chili',
-            price: '15.000 - 100.000',
-            image: 'img/oscar red chili.jpg',
-            desc: 'Ikan cerdas yang bisa interaktif, dengan warna albino yang langka.',
-            size: '35 cm',
-            temp: '22-28°C',
-            ph: '6.0-8.0',
-            badge: 'Best Seller',
-            filter: 'other'
-        }
-    ];
-
+    const defaultFishHias = [];
+    const defaultFishPredator = [];
     const teamMembers = {
         1: { 
             name: 'Uky Zubair', 
@@ -178,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem(key, JSON.stringify(data));
     }
 
-    let fishHias = loadData('fishHias', defaultFishHias);
-    let fishPredator = loadData('fishPredator', defaultFishPredator);
+    let fishHias = [];
+    let fishPredator = [];
     let cart = loadData('cart', []);
     let editingFishId = null;
     let deletingFishId = null;
@@ -343,10 +243,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `).join('');
-    }
-
-    renderFishCards('fish-hias-grid', fishHias);
-    renderFishCards('fish-predator-grid', fishPredator);
+        
+        }
 
     // =====================
     // FILTER TABS
@@ -431,22 +329,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    fishForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+    
+    fishForm.addEventListener('submit', async (e) => {
 
-        const category = document.getElementById('fish-category').value;
-        const fishData = {
-            id: editingFishId || Date.now(),
-            name: document.getElementById('fish-name').value,
-            price: document.getElementById('fish-price').value,
-            image: document.getElementById('fish-image').value,
-            desc: document.getElementById('fish-desc').value,
-            size: document.getElementById('fish-size').value,
-            temp: document.getElementById('fish-temp').value,
-            ph: document.getElementById('fish-ph').value,
-            badge: document.getElementById('fish-badge').value,
-            filter: document.getElementById('fish-filter').value
-        };
+    e.preventDefault();
+
+    const fishData = {
+
+        name: document.getElementById('fish-name').value,
+        price: document.getElementById('fish-price').value,
+        image: document.getElementById('fish-image').value,
+        desc: document.getElementById('fish-desc').value,
+        size: document.getElementById('fish-size').value,
+        temp: document.getElementById('fish-temp').value,
+        ph: document.getElementById('fish-ph').value,
+        badge: document.getElementById('fish-badge').value,
+        category: document.getElementById('fish-category').value
+
+    };
+
+    try {
+
+        const response = await fetch('/api/add_fish', {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(fishData)
+
+        });
+
+        const result = await response.json();
+
+        showNotification(result.message);
+
+        closeFishModalFunc();
+
+        loadFishFromAPI();
+
+    } catch (error) {
+
+        console.error(error);
+
+        showNotification('Gagal menambahkan ikan');
+
+    }
+
+});
 
         if (category === 'hias') {
             if (editingFishId) {
@@ -860,5 +792,36 @@ Terima kasih telah berbelanja di Arken Fish Gallery!`;
         checkoutForm.reset();
         checkoutModal.classList.remove('active');
         showNotification('Mengarahkan ke WhatsApp...');
-    });
-});
+
+        
+
+ });
+
+    async function loadFishFromAPI() {
+
+    try {
+
+        const response = await fetch('/api/fish');
+
+        const data = await response.json();
+
+        console.log('DATA SQLITE:', data);
+
+        // PISAHKAN DATA
+        fishHias = data.filter(fish => fish.filter === 'hias');
+        fishPredator = data.filter(fish => fish.filter === 'predator');
+
+        // RENDER CARD
+        renderFishCards('fish-hias-grid', fishHias);
+        renderFishCards('fish-predator-grid', fishPredator);
+
+    } catch (error) {
+
+        console.error('Gagal mengambil data:', error);
+
+    }
+}
+
+loadFishFromAPI();
+
+ });
