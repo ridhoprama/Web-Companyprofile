@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         container.innerHTML = data.map(fish => `
-            <div class="fish-card" data-filter="${fish.filter || 'all'}">
+            <div class="fish-card" data-filter="${fish.category || 'all'}">
                 <div class="fish-image">
                     <img src="${fish.image}" alt="${fish.name}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
                     ${fish.badge ? `<span class="fish-badge">${fish.badge}</span>` : ''}
@@ -243,8 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `).join('');
-        
-        }
+    }
 
     // =====================
     // FILTER TABS
@@ -302,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('fish-temp').value = fish.temp || '';
             document.getElementById('fish-ph').value = fish.ph || '';
             document.getElementById('fish-badge').value = fish.badge || '';
-            document.getElementById('fish-filter').value = fish.filter || 'all';
+            document.getElementById('fish-filter').value = fish.category || 'all';
             editingFishId = fish.id;
         } else {
             modalTitle.textContent = 'Tambah Ikan Baru';
@@ -329,80 +328,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    
     fishForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    e.preventDefault();
+        const fishData = {
+            name: document.getElementById('fish-name').value,
+            price: document.getElementById('fish-price').value,
+            image: document.getElementById('fish-image').value,
+            desc: document.getElementById('fish-desc').value,
+            size: document.getElementById('fish-size').value,
+            temp: document.getElementById('fish-temp').value,
+            ph: document.getElementById('fish-ph').value,
+            badge: document.getElementById('fish-badge').value,
+            category: document.getElementById('fish-category').value
+        };
 
-    const fishData = {
+        try {
+            const response = await fetch('/api/add_fish', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(fishData)
+            });
 
-        name: document.getElementById('fish-name').value,
-        price: document.getElementById('fish-price').value,
-        image: document.getElementById('fish-image').value,
-        desc: document.getElementById('fish-desc').value,
-        size: document.getElementById('fish-size').value,
-        temp: document.getElementById('fish-temp').value,
-        ph: document.getElementById('fish-ph').value,
-        badge: document.getElementById('fish-badge').value,
-        category: document.getElementById('fish-category').value
+            const result = await response.json();
+            showNotification(result.message);
+            closeFishModalFunc();
+            
+            // Reload data dari API setelah berhasil tambah
+            loadFishFromAPI();
 
-    };
-
-    try {
-
-        const response = await fetch('/api/add_fish', {
-
-            method: 'POST',
-
-            headers: {
-                'Content-Type': 'application/json'
-            },
-
-            body: JSON.stringify(fishData)
-
-        });
-
-        const result = await response.json();
-
-        showNotification(result.message);
-
-        closeFishModalFunc();
-
-        loadFishFromAPI();
-
-    } catch (error) {
-
-        console.error(error);
-
-        showNotification('Gagal menambahkan ikan');
-
-    }
-
-});
-
-        if (category === 'hias') {
-            if (editingFishId) {
-                const index = fishHias.findIndex(f => f.id === editingFishId);
-                if (index !== -1) fishHias[index] = fishData;
-            } else {
-                fishHias.push(fishData);
-            }
-            saveData('fishHias', fishHias);
-            renderFishCards('fish-hias-grid', fishHias);
-        } else {
-            if (editingFishId) {
-                const index = fishPredator.findIndex(f => f.id === editingFishId);
-                if (index !== -1) fishPredator[index] = fishData;
-            } else {
-                fishPredator.push(fishData);
-            }
-            saveData('fishPredator', fishPredator);
-            renderFishCards('fish-predator-grid', fishPredator);
+        } catch (error) {
+            console.error(error);
+            showNotification('Gagal menambahkan ikan');
         }
-
-        closeFishModalFunc();
-        showNotification(editingFishId ? 'Ikan berhasil diperbarui!' : 'Ikan berhasil ditambahkan!');
     });
+
+    // NOTE: Kode if (category === 'hias') yang menyebabkan error sudah DIHAPUS di sini.
+    // Logika penambahan sekarang sepenuhnya ditangani oleh fetch API di atas.
 
     window.editFish = function(category, id) {
         const data = category === 'hias' ? fishHias : fishPredator;
@@ -429,6 +393,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     confirmDeleteBtn.addEventListener('click', () => {
+        // Catatan: Fungsi delete ini saat ini hanya menghapus di variabel lokal & localStorage.
+        // Jika ingin menghapus dari Database SQLite, perlu membuat endpoint API delete di app.py
         if (deletingFishCategory === 'hias') {
             fishHias = fishHias.filter(f => f.id !== deletingFishId);
             saveData('fishHias', fishHias);
@@ -463,11 +429,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartItemsEl = document.getElementById('cart-items');
     const cartTotalPriceEl = document.getElementById('cart-total-price');
 
-    // Helper: Parse Price String (ambil angka pertama dari range)
     function parsePrice(priceStr) {
-        // Contoh: "75.000 - 250.000" -> ambil "75.000"
         const firstPart = priceStr.split('-')[0].trim();
-        // Hilangkan titik, ubah ke integer
         return parseInt(firstPart.replace(/\./g, '')) || 0;
     }
 
@@ -510,7 +473,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
         }).join('');
-
         cartTotalPriceEl.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
     }
 
@@ -694,21 +656,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const getLocationBtn = document.getElementById('get-location-btn');
     const buyerLocationInput = document.getElementById('buyer-location');
 
-    // Buka modal checkout saat tombol diklik
     checkoutBtn.addEventListener('click', () => {
         if (cart.length === 0) {
             showNotification('Keranjang kosong!');
             return;
         }
-        // Tutup sidebar keranjang dulu
         cartSidebar.classList.remove('active');
         overlay.classList.remove('active');
-        
-        // Buka modal checkout
         checkoutModal.classList.add('active');
     });
 
-    // Tutup modal checkout
     closeCheckoutModal.addEventListener('click', () => {
         checkoutModal.classList.remove('active');
     });
@@ -719,7 +676,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Logika Ambil Lokasi GPS
     getLocationBtn.addEventListener('click', () => {
         if (!navigator.geolocation) {
             showNotification('Browser tidak mendukung GPS');
@@ -733,8 +689,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const lat = position.coords.latitude;
                 const long = position.coords.longitude;
                 const mapsUrl = `https://www.google.com/maps?q=${lat},${long}`;
-                
-                // Isi input dengan link Google Maps
                 buyerLocationInput.value = mapsUrl;
                 showNotification('Lokasi berhasil didapat!');
             },
@@ -745,7 +699,6 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     });
 
-    // Logika Submit Checkout
     checkoutForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -758,7 +711,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Hitung total lagi untuk pesan WA
         let grandTotal = 0;
         const daftarPesanan = cart.map((item, index) => {
             const itemPrice = parsePrice(item.price);
@@ -788,40 +740,30 @@ Terima kasih telah berbelanja di Arken Fish Gallery!`;
         
         window.open(linkWA, '_blank');
         
-        // Reset form dan tutup modal
         checkoutForm.reset();
         checkoutModal.classList.remove('active');
         showNotification('Mengarahkan ke WhatsApp...');
-
-        
-
- });
+    });
 
     async function loadFishFromAPI() {
+        try {
+            const response = await fetch('/api/fish');
+            const data = await response.json();
 
-    try {
+            console.log('DATA SQLITE:', data);
 
-        const response = await fetch('/api/fish');
+            // PISAHKAN DATA
+            fishHias = data.filter(fish => fish.category === 'hias');
+            fishPredator = data.filter(fish => fish.category === 'predator');
 
-        const data = await response.json();
+            // RENDER CARD
+            renderFishCards('fish-hias-grid', fishHias);
+            renderFishCards('fish-predator-grid', fishPredator);
 
-        console.log('DATA SQLITE:', data);
-
-        // PISAHKAN DATA
-        fishHias = data.filter(fish => fish.filter === 'hias');
-        fishPredator = data.filter(fish => fish.filter === 'predator');
-
-        // RENDER CARD
-        renderFishCards('fish-hias-grid', fishHias);
-        renderFishCards('fish-predator-grid', fishPredator);
-
-    } catch (error) {
-
-        console.error('Gagal mengambil data:', error);
-
+        } catch (error) {
+            console.error('Gagal mengambil data:', error);
+        }
     }
-}
 
-loadFishFromAPI();
-
- });
+    loadFishFromAPI();
+});

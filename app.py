@@ -27,10 +27,9 @@ class Fish(db.Model):
 def home():
     return render_template('index.html')
 
-# TAMBAH DATA IKAN
+# TAMBAH DATA IKAN (Untuk inisialisasi awal saja)
 @app.route('/tambah')
 def tambah():
-
     ikan1 = Fish(
         name='Channa Barca',
         price='150000',
@@ -46,7 +45,7 @@ def tambah():
     ikan2 = Fish(
         name='Louhan',
         price='85000',
-        image='img/louhan.jpg',
+        image='static/img/louhan.jpg',
         desc='Ikan hias dengan jenong besar dan warna cantik.',
         size='25 cm',
         temp='28-30°C',
@@ -56,38 +55,31 @@ def tambah():
     )
 
     ikan3 = Fish(
-    name='Oscar Tiger',
-    price='95000',
-    image='img/oscar.jpg',
-    desc='Ikan oscar dengan warna tiger.',
-    size='20 cm',
-    temp='26-30°C',
-    ph='6.5-7.5',
-    badge='New',
-    category='predator'
-)
-
-    
+        name='Oscar Tiger',
+        price='95000',
+        image='static/img/oscar.jpg',
+        desc='Ikan oscar dengan warna tiger.',
+        size='20 cm',
+        temp='26-30°C',
+        ph='6.5-7.5',
+        badge='New',
+        category='predator'
+    )
 
     db.session.add(ikan1)
     db.session.add(ikan2)
     db.session.add(ikan3)
-    
-
     db.session.commit()
 
     return 'Data ikan berhasil ditambahkan!'
 
-# API DATA IKAN
+# API DATA IKAN (SUDAH DIPERBAIKI)
 @app.route('/api/fish')
 def get_fish():
-
     fishes = Fish.query.all()
-
     result = []
-
+    
     for fish in fishes:
-
         result.append({
             'id': fish.id,
             'name': fish.name,
@@ -98,11 +90,15 @@ def get_fish():
             'temp': fish.temp,
             'ph': fish.ph,
             'badge': fish.badge,
-            'filter': fish.category
+            # PERBAIKAN: Key diganti menjadi 'category' sesuai request JS
+            'category': fish.category
         })
+    
+    # PERBAIKAN: Menambahkan return agar data dikirim ke frontend
+    return jsonify(result)
+
 @app.route('/api/add_fish', methods=['POST'])
 def add_fish():
-
     data = request.json
 
     new_fish = Fish(
@@ -126,8 +122,6 @@ def add_fish():
 
 
 if __name__ == '__main__':
-
     with app.app_context():
         db.create_all()
-
     app.run(debug=True)
